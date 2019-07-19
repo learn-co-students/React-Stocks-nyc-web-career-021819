@@ -14,7 +14,7 @@ class PortfolioContainer extends Component {
       <div>
         <h2>My Portfolio</h2>
         {
-          this.props.stocks.length > 0 ? this.renderAllStocks() : null
+          this.props.stocks && this.props.stocks.length > 0 ? this.renderAllStocks() : null
         }
       </div>
     );
