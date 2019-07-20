@@ -7,7 +7,8 @@ class MainContainer extends Component {
 
   state = {
     stocks: [],
-    selectedSort: ''
+    selectedSort: '',
+    filterValue: 'All'
   };
 
   componentDidMount() {
@@ -85,6 +86,7 @@ class MainContainer extends Component {
 
   filterStocks() {
     console.log("filtering");
+    return this.state.filterValue === 'All' ? this.state.stocks : this.state.stocks.filter(stock => stock.type === this.state.filterValue)
   }
 
 
@@ -97,7 +99,7 @@ class MainContainer extends Component {
           <div className="row">
             <div className="col-8">
 
-              <StockContainer stocks={ this.state.stocks } handleClick={ this.handleClick }/>
+              <StockContainer stocks={ this.filterStocks() } handleClick={ this.handleClick }/>
 
             </div>
             <div className="col-4">
