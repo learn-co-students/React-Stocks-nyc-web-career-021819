@@ -42,17 +42,36 @@ class MainContainer extends Component {
     return this.state.stocks && this.state.stocks.length > 0 ? this.state.stocks.filter(stock => stock.owned === true) : null
   }
 
-  sortStocks = e => {
+  alphaSort(stock_a, stock_b) {
+    console.log("alphasorting")
+    stock_a.name - stock_b.name
+  }
+
+  priceSort(stock_a, stock_b) {
+    console.log("pricesorting")
+    stock_a.price - stock_b.price
+  }
+
+  handleSelect = e => {
     this.setState({
       selectedSort: e.target.value
-    }, () => console.log(this.state))
+    }, () => this.sortStocks())
   }
+
+  sortStocks() {
+    if (this.state.selectedSort==='Alphabetically') {
+      this.state.stocks.sort(this.alphaSort)
+    } else if (this.state.selectedSort==='Price') {
+      this.state.stocks.sort(this.priceSort)
+    }  
+  }
+
 
 
   render() {
     return (
       <div>
-        <SearchBar selectedSort={this.state.selectedSort} sortStocks={this.sortStocks}/>
+        <SearchBar selectedSort={this.state.selectedSort} handleSelect={this.handleSelect}/>
 
           <div className="row">
             <div className="col-8">
