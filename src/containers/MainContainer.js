@@ -38,18 +38,22 @@ class MainContainer extends Component {
   }
 
   filterPortfolio() {
-    console.log("filtering", this.state.stocks)
     return this.state.stocks && this.state.stocks.length > 0 ? this.state.stocks.filter(stock => stock.owned === true) : null
   }
 
-  alphaSort(stock_a, stock_b) {
-    console.log("alphasorting")
-    stock_a.name - stock_b.name
+  alphaSort(stockA, stockB) {
+    return stockA.name.localeCompare(stockB.name)
+    // if (stockA.name < stockB.name) {
+    //   return -1;
+    // }
+    // if (stockA.name > stockB.name) {
+    //   return 1;
+    // }
+    // return 0;
   }
 
-  priceSort(stock_a, stock_b) {
-    console.log("pricesorting")
-    stock_a.price - stock_b.price
+  priceSort(stockA, stockB) {
+    return stockB.price - stockA.price
   }
 
   handleSelect = e => {
@@ -58,12 +62,29 @@ class MainContainer extends Component {
     }, () => this.sortStocks())
   }
 
+  sortByRadio(sortMethod) {
+    let sortedStocks = this.state.stocks.sort(sortMethod)
+    this.setState({
+      stocks: sortedStocks
+    })
+  }
+
   sortStocks() {
     if (this.state.selectedSort==='Alphabetically') {
-      this.state.stocks.sort(this.alphaSort)
+      this.sortByRadio(this.alphaSort)
     } else if (this.state.selectedSort==='Price') {
-      this.state.stocks.sort(this.priceSort)
+      this.sortByRadio(this.priceSort)
     }  
+  }
+
+  handleChange = e => {
+    this.setState({
+      filterValue: e.target.value
+    }, () => this.filterStocks())
+  }
+
+  filterStocks() {
+    console.log("filtering");
   }
 
 
@@ -71,7 +92,7 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        <SearchBar selectedSort={this.state.selectedSort} handleSelect={this.handleSelect}/>
+        <SearchBar selectedSort={this.state.selectedSort} handleSelect={this.handleSelect} handleChange={this.handleChange}/>
 
           <div className="row">
             <div className="col-8">

@@ -3,7 +3,7 @@ import React from 'react';
 // allow a user to sort the list of stocks alphabetically by the ticker name as well as by ascending price.
 // allow a user to filter stocks based on the type of the stock.
 
-const SearchBar = ({handleSelect, selectedSort}) => {
+const SearchBar = ({handleSelect, handleChange, selectedSort}) => {
   return (
     <div>
 
@@ -21,7 +21,7 @@ const SearchBar = ({handleSelect, selectedSort}) => {
 
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
+        <select onChange={e => handleChange(e)}>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
