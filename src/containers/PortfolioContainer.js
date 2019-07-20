@@ -3,13 +3,19 @@ import Stock from '../components/Stock'
 
 class PortfolioContainer extends Component {
 
+  renderAllStocks() {
+    return this.props.stocks.map(stock => {
+      return <Stock stockData={stock} key={stock.id}/>
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>My Portfolio</h2>
-          {
-            //render your portfolio stocks here
-          }
+        {
+          this.props.stocks && this.props.stocks.length > 0 ? this.renderAllStocks() : null
+        }
       </div>
     );
   }

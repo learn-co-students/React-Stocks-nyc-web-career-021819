@@ -3,12 +3,20 @@ import Stock from '../components/Stock'
 
 class StockContainer extends Component {
 
+
+  renderAllStocks() {
+    return this.props.stocks.map(stock => {
+      return <Stock stockData={stock} handleClick={this.props.handleClick} key={stock.id}/>
+    })
+  }
+
   render() {
+
     return (
       <div>
         <h2>Stocks</h2>
         {
-          //render the list of stocks here
+          this.props.stocks.length > 0 ? this.renderAllStocks() : null
         }
       </div>
     );
